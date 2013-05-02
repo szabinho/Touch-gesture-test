@@ -34,20 +34,27 @@
 
  			function touchDragable(node) {
  				var lastPosX = null;
+ 				var lastPosY = null
 	 			node.on('touchstart', function(event){
 	 				startPosX = event.originalEvent.touches[0].pageX;
-	 				if (lastPosX === null) {lastPosX = 0};
+	 				startPosY = event.originalEvent.touches[0].pageY;
+	 				if (lastPosX === null) {
+	 					lastPosX = 0;
+	 					lastPosY = 0;
+	 				};
 	 			});
 
 	 			node.on('touchmove', function(event){
 					event.preventDefault();
 					curPosX = event.originalEvent.touches[0].pageX;
+					curPosY = event.originalEvent.touches[0].pageY;
 					node.text(curPosX-startPosX);
-					node.css("-webkit-transform", "translate3d(" + (lastPosX + curPosX - startPosX) + "px, 0, 0)");
+					node.css("-webkit-transform", "translate3d(" + (lastPosX + curPosX - startPosX) + "px, " + (lastPosY + curPosY - startPosY) + "px, 0)");
 				});
 
 				node.on('touchend', function(event){
 					lastPosX += curPosX-startPosX;
+					lastPosY += curPosY-startPosY;
 					$('.lastposx').text(lastPosX);
 				});
  			};
