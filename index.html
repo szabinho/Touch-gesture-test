@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		div {
+			display: inline-block;
+			-webkit-box-sizing: border-box;
+			width:30%;
+			height: 8em;
+			margin: 1%;
+			background: grey;
+		}
+		.box1 {
+			background: green;
+		}
+
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+ 			$(".ready").text("The DOM is now loaded and can be manipulated.");
+ 			var b1 = $('.box1');
+
+ 			lastPosX = null;
+ 			b1.on('touchstart', function(event){
+ 				startPosX = event.originalEvent.touches[0].pageX;
+ 				if (lastPosX === null) {lastPosX = 0};
+ 			});
+
+ 			b1.on('touchmove', function(event){
+				event.preventDefault();
+				curPosX = event.originalEvent.touches[0].pageX;
+				b1.text(curPosX-startPosX);
+				b1.css("-webkit-transform", "translate3d(" + (lastPosX + curPosX - startPosX) + "px, 0, 0)");
+			});
+
+			b1.on('touchend', function(event){
+				lastPosX += curPosX-startPosX;
+				$('.lastposx').text(lastPosX);
+			});
+ 		});
+	</script>
+
+</head>
+<body>
+	<div class="box1">1</div>
+	<div class="box2">2</div>
+	<div class="box3">3</div>
+	<p class="ready">Not ready yet</p>
+	<p class="lastposx">last</p>
+</body>
+</html>
