@@ -30,11 +30,14 @@
 	<script>
 		$(document).ready(function () {
  			$(".ready").text("The DOM is now loaded and can be manipulated.");
- 			var b1 = $('.box1');
 
  			function touchDragable(node) {
- 				var lastPosX = null;
- 				var lastPosY = null
+ 				var lastPosX = null,
+ 					lastPosY = null,
+ 					startPosX, startPosY,
+ 					curPosX, curPosY,
+ 					lastPosX, lastPosY;
+
 	 			node.on('touchstart', function(event){
 	 				startPosX = event.originalEvent.touches[0].pageX;
 	 				startPosY = event.originalEvent.touches[0].pageY;
